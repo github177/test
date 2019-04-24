@@ -11,6 +11,11 @@ const routes: Routes = [
     {
         path: "home",
         component: HomeComponent
+    },
+    {
+        path: "",
+        pathMatch: "full",
+        redirectTo: "home"
     }
 ];
 
@@ -18,4 +23,4 @@ const routes: Routes = [
     imports: [RouterModule.forRoot(routes)],
     exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }
