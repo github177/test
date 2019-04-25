@@ -7,19 +7,22 @@ import { GatewayService } from "src/app/shared/gateway.service";
     styleUrls: ["./list.component.css"]
 })
 export class ListComponent implements OnInit {
-    public tableDataMore = [
-        { name: "1", date: "1", address: "1" },
-        { name: "1", date: "1", address: "1" },
-        { name: "2", date: "2", address: "2" },
-        { name: "1", date: "1", address: "1" },
-        { name: "2", date: "2", address: "2" },
-        { name: "1", date: "1", address: "1" },
-        { name: "2", date: "2", address: "2" }
-    ];
+    public tableDataMore: {
+        name: string;
+        port: number;
+        version: string;
+    }[] = [];
     constructor(private gatewayService: GatewayService) {}
 
     ngOnInit() {
-        this.gatewayService.getTestData().subscribe(x => console.log(x));
+        this.gatewayService.getTestData().subscribe(x => {
+            console.log(x);
+            if (x.RetCode && x.RetCode === 'Error') {
+                alert(x.RetMessage);
+            } else {
+                this.tableDataMore = x;
+            }
+        });
     }
 
     public handle(ref: any): void {

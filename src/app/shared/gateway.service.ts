@@ -48,7 +48,7 @@ export class GatewayService {
     //     );
     // }
 
-    public getTestData(): Observable<void> {
+    public getTestData(): Observable<any> {
         return this.get({
             apiModule: "Test",
             operation: "GetTestData"
@@ -56,14 +56,14 @@ export class GatewayService {
     }
 
     private get<T>(apiQuery: ApiQuery): Observable<T> {
-        return this.http.get(this.formatUrl(apiQuery), {}).pipe(
+        return this.http.get(this.formatUrl(apiQuery)).pipe(
             map(this.extractData),
             catchError(err => this.handleError<T>(err))
         );
     }
 
     private delete<T>(apiQuery: ApiQuery): Observable<T> {
-        return this.http.delete(this.formatUrl(apiQuery), {}).pipe(
+        return this.http.delete(this.formatUrl(apiQuery)).pipe(
             map(this.extractData),
             catchError(err => this.handleError<T>(err))
         );
@@ -90,7 +90,7 @@ export class GatewayService {
     }
 
     private put<T>(apiQuery: ApiQuery, body?: any): Observable<T> {
-        return this.http.put(this.formatUrl(apiQuery), body, {}).pipe(
+        return this.http.put(this.formatUrl(apiQuery), body).pipe(
             map(this.extractData),
             catchError(err => this.handleError<T>(err))
         );
@@ -119,12 +119,13 @@ export class GatewayService {
         return throwError(`A network or backend error happened`);
     }
 
-    private extractData<T>(raw: AjaxResponse): T {
-        const response = raw.response as RawApiResponse<T>;
-        if (response.RetCode === "OK") {
-            return response.Data;
+    private extractData<T>(raw: RawApiResponse<T>) {
+        // console.log(raw);
+        // const response = raw.response as RawApiResponse<T>;
+        if (raw.RetCode === "OK") {
+            return raw.Data;
         } else {
-            throw response;
+            return raw;
         }
     }
 

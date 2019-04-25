@@ -41,25 +41,22 @@ app.use(bodyParser.json());
 // });
 
 app.all("*", (req, res, next) => {
-    console.log();
     let date = new Date();
     console.log(date.toLocaleString());
     console.log(req.query);
-    console.log(`X-Feature-Path: ${req.header("X-Feature-Path")}`);
+    // console.log(`X-Feature-Path: ${req.header("X-Feature-Path")}`);
     return next();
 });
 
-app.all(
-    "/api/nodes/:node/features/LenovoServerManagement/",
-    async (req, res, next) => {
-        switch (req.query.operation) {
-            case "Test.GetTestData":
-                return res.json(ok(data.test)).end();
-            default:
-                return next();
-        }
+app.all("/api/nodes/:node/features/TestAngular/", async (req, res, next) => {
+    switch (req.query.operation) {
+        case "Test.GetTestData":
+            return res.json(ok(data.test)).end();
+        // return res.json(error("test api is error")).end();
+        default:
+            return next();
     }
-);
+});
 
 function start() {
     loadDebugData();

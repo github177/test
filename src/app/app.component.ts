@@ -15,9 +15,11 @@ export class AppComponent implements OnInit {
     ) {
         this.router.events.subscribe((event: NavigationEnd) => {
             if (event instanceof NavigationEnd) {
-                console.log(this.activatedRoute.children[0].routeConfig.path);
+                console.log(
+                    this.activatedRoute.children[0].children[0].routeConfig.path
+                );
 
-                this.currentLink = this.activatedRoute.children[0].routeConfig.path;
+                this.currentLink = this.activatedRoute.children[0].children[0].routeConfig.path;
 
                 // Get Current Path:  company  同理
                 // this.activatedRoute.url.subscribe(url => console.log(url[0].path));
