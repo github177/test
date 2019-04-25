@@ -1,15 +1,15 @@
-const express = require('express'),
-    path = require('path'),
-    readline = require('readline'),
+const express = require("express"),
+    path = require("path"),
+    readline = require("readline"),
     rl = readline.createInterface(process.stdin),
-    http = require('http'),
+    http = require("http"),
     app = express(),
     server = http.createServer(app),
-    bodyParser = require('body-parser')
+    bodyParser = require("body-parser");
 
 function loadDebugData() {
     data = {
-        lxcas: require('./data/lxcas.json')
+        test: require("./data/test.json")
     };
 }
 
@@ -19,15 +19,15 @@ function timeout(ms) {
 
 function ok(something) {
     return {
-        RetCode: 'OK',
-        RetMessage: '',
+        RetCode: "OK",
+        RetMessage: "",
         Data: something || null
     };
 }
 
 function error(message, data) {
     return {
-        RetCode: 'Error',
+        RetCode: "Error",
         RetMessage: message,
         Data: data || null
     };
@@ -35,26 +35,26 @@ function error(message, data) {
 
 app.use(bodyParser.json());
 
-app.get('/api/download', (req, res) => {
-    console.log(req.url);
-    res.sendFile(path.join(__dirname, './data/download.sample.zip'));
-});
+// app.get('/api/download', (req, res) => {
+//     console.log(req.url);
+//     res.sendFile(path.join(__dirname, './data/download.sample.zip'));
+// });
 
-app.all('*', (req, res, next) => {
+app.all("*", (req, res, next) => {
     console.log();
     let date = new Date();
     console.log(date.toLocaleString());
     console.log(req.query);
-    console.log(`X-Feature-Path: ${req.header('X-Feature-Path')}`);
+    console.log(`X-Feature-Path: ${req.header("X-Feature-Path")}`);
     return next();
 });
 
 app.all(
-    '/api/nodes/:node/features/LenovoServerManagement/',
+    "/api/nodes/:node/features/LenovoServerManagement/",
     async (req, res, next) => {
         switch (req.query.operation) {
-            case 'Session.Login':
-                return res.json(ok()).end();
+            case "Test.GetTestData":
+                return res.json(ok(data.test)).end();
             default:
                 return next();
         }
@@ -69,7 +69,7 @@ function start() {
     });
 }
 
-rl.addListener('line', () => {
+rl.addListener("line", () => {
     console.log(`closing...`);
     server.close(() => {
         console.log(`restarting...`);
