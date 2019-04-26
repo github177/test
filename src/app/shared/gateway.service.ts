@@ -1,27 +1,11 @@
-import { HttpErrorResponse, HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
-import { AjaxRequest, AjaxResponse } from 'rxjs/ajax';
 import { catchError, map } from 'rxjs/operators';
+import { TestDataModel } from './gateway.model';
 
-/**
- * A service for calling gateway APIs.
- * @example
- * try {
- *     lxcas = this.gateway.getLxcaList().toPromise();
- * } catch (e) {
- *     switch ((e as RawApiResponse).RetMessage) {
- *         case "custom error 1":
- *             // handle error 1
- *         default:
- *             // handle normal errors (or just return)
- *     }
- * }
- */
 @Injectable()
 export class GatewayService {
-    private readonly feature = 'TestAngular';
-
     public static isRawApiResponse(object: any): object is RawApiResponse<any> {
         return (
             !!object &&
@@ -30,25 +14,9 @@ export class GatewayService {
         );
     }
 
-    private getNode(): string {
-        return `test.com`;
-    }
-
     constructor(private http: HttpClient) {}
 
-    // public getTestData(isAllowed: boolean): Observable<void> {
-    //     return this.put(
-    //         {
-    //             apiModule: "Misc",
-    //             operation: "SetUsageDataAuthorization"
-    //         },
-    //         {
-    //             authorized: isAllowed
-    //         }
-    //     );
-    // }
-
-    public getTestData(): Observable<any> {
+    public getTestData(): Observable<TestDataModel[]> {
         return this.get({
             apiModule: 'Test',
             operation: 'GetTestData'
@@ -102,7 +70,8 @@ export class GatewayService {
         if (GatewayService.isRawApiResponse(error)) {
             // Custom error, marked by "RetCode !== 'OK'"
             // let the caller handle it
-            return throwError(error);
+            alert(error.RetMessage);
+            return throwError(error.RetMessage);
         }
         if (error.error instanceof ErrorEvent) {
             // A client-side or network error occurred.
@@ -120,12 +89,10 @@ export class GatewayService {
     }
 
     private extractData<T>(raw: RawApiResponse<T>) {
-        // console.log(raw);
-        // const response = raw.response as RawApiResponse<T>;
         if (raw.RetCode === 'OK') {
             return raw.Data;
         } else {
-            return raw;
+            throw raw;
         }
     }
 
@@ -134,9 +101,7 @@ export class GatewayService {
             operation: `${apiQuery.apiModule}.${apiQuery.operation}`,
             ...apiQuery.extraQuery
         };
-        return `/api/nodes/${this.getNode()}/features/${
-            this.feature
-        }/?${Object.keys(query)
+        return `/api/?${Object.keys(query)
             .map(key => `${key}=${query[key]}`)
             .join('&')}`;
     }

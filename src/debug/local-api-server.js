@@ -35,6 +35,7 @@ function error(message, data) {
 
 app.use(bodyParser.json());
 
+// download file api
 // app.get('/api/download', (req, res) => {
 //     console.log(req.url);
 //     res.sendFile(path.join(__dirname, './data/download.sample.zip'));
@@ -44,15 +45,14 @@ app.all('*', (req, res, next) => {
     let date = new Date();
     console.log(date.toLocaleString());
     console.log(req.query);
-    // console.log(`X-Feature-Path: ${req.header("X-Feature-Path")}`);
     return next();
 });
 
-app.all('/api/nodes/:node/features/TestAngular/', async (req, res, next) => {
+app.all('/api/', async (req, res, next) => {
     switch (req.query.operation) {
         case 'Test.GetTestData':
             return res.json(ok(data.test)).end();
-        // return res.json(error("test api is error")).end();
+        // return res.json(error('test api is error')).end();
         default:
             return next();
     }

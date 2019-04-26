@@ -15,12 +15,9 @@ export class ListComponent implements OnInit {
     constructor(private gatewayService: GatewayService) {}
 
     ngOnInit() {
-        this.gatewayService.getTestData().subscribe(x => {
-            console.log(x);
-            if (x.RetCode && x.RetCode === 'Error') {
-                alert(x.RetMessage);
-            } else {
-                this.tableDataMore = x;
+        this.gatewayService.getTestData().subscribe(testData => {
+            if (testData) {
+                this.tableDataMore = testData;
             }
         });
     }
