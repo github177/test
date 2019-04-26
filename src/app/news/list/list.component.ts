@@ -1,10 +1,10 @@
-import { Component, OnInit } from "@angular/core";
-import { GatewayService } from "src/app/shared/gateway.service";
+import { Component, OnInit } from '@angular/core';
+import { GatewayService } from 'src/app/shared/gateway.service';
 
 @Component({
-    selector: "app-list",
-    templateUrl: "./list.component.html",
-    styleUrls: ["./list.component.css"]
+    selector: 'app-list',
+    templateUrl: './list.component.html',
+    styleUrls: ['./list.component.css']
 })
 export class ListComponent implements OnInit {
     public tableDataMore: {

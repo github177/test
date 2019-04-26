@@ -1,13 +1,13 @@
-import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute, NavigationEnd, Router } from "@angular/router";
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 
 @Component({
-    selector: "app-root",
-    templateUrl: "./app.component.html",
-    styleUrls: ["./app.component.css"]
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-    public currentLink = "home";
+    public currentLink = 'home';
 
     constructor(
         private activatedRoute: ActivatedRoute,
@@ -35,6 +35,6 @@ export class AppComponent implements OnInit {
     }
 
     public submit() {
-        alert("Submit!");
+        alert('Submit!');
     }
 }

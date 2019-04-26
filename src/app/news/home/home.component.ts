@@ -1,33 +1,33 @@
-import { Component, OnInit } from "@angular/core";
-import * as echarts from "echarts";
+import { Component, OnInit } from '@angular/core';
+import * as echarts from 'echarts';
 
 @Component({
-    selector: "app-home",
-    templateUrl: "./home.component.html",
-    styleUrls: ["./home.component.css"]
+    selector: 'app-home',
+    templateUrl: './home.component.html',
+    styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
     constructor() {}
 
     ngOnInit() {
         // 基于准备好的dom，初始化echarts实例
-        var myChart = echarts.init(document.getElementById(
-            "main"
+        const myChart = echarts.init(document.getElementById(
+            'main'
         ) as HTMLCanvasElement);
         // 绘制图表
         myChart.setOption({
             title: {
-                text: "ECharts 入门示例"
+                text: 'ECharts 入门示例'
             },
             tooltip: {},
             xAxis: {
-                data: ["衬衫", "羊毛衫", "雪纺衫", "裤子", "高跟鞋", "袜子"]
+                data: ['衬衫', '羊毛衫', '雪纺衫', '裤子', '高跟鞋', '袜子']
             },
             yAxis: {},
             series: [
                 {
-                    name: "销量",
-                    type: "bar",
+                    name: '销量',
+                    type: 'bar',
                     data: [5, 20, 36, 10, 10, 20]
                 }
             ]

@@ -1,8 +1,8 @@
 {
-  "/api": {
-    "target": "http://localhost:8000",
-    "secure": false
-  },
-  "__comment__": "This file is aimed to config angular CLI to redirect /api requests to a local server for debugging.",
-  "__usage__": "ng serve --proxy-config proxy.conf.json"
+    "/api": {
+        "target": "http://localhost:8000",
+        "secure": false
+    },
+    "__comment__": "This file is aimed to config angular CLI to redirect /api requests to a local server for debugging.",
+    "__usage__": "ng serve --proxy-config proxy.conf.json"
 }

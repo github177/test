@@ -1,8 +1,8 @@
-import { HttpErrorResponse, HttpClient } from "@angular/common/http";
-import { Injectable } from "@angular/core";
-import { Observable, throwError } from "rxjs";
-import { AjaxRequest, AjaxResponse } from "rxjs/ajax";
-import { catchError, map } from "rxjs/operators";
+import { HttpErrorResponse, HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable, throwError } from 'rxjs';
+import { AjaxRequest, AjaxResponse } from 'rxjs/ajax';
+import { catchError, map } from 'rxjs/operators';
 
 /**
  * A service for calling gateway APIs.
@@ -20,13 +20,13 @@ import { catchError, map } from "rxjs/operators";
  */
 @Injectable()
 export class GatewayService {
-    private readonly feature = "TestAngular";
+    private readonly feature = 'TestAngular';
 
     public static isRawApiResponse(object: any): object is RawApiResponse<any> {
         return (
             !!object &&
-            typeof object === "object" &&
-            ("RetCode" in object && "RetMessage" in object && "Data" in object)
+            typeof object === 'object' &&
+            ('RetCode' in object && 'RetMessage' in object && 'Data' in object)
         );
     }
 
@@ -50,8 +50,8 @@ export class GatewayService {
 
     public getTestData(): Observable<any> {
         return this.get({
-            apiModule: "Test",
-            operation: "GetTestData"
+            apiModule: 'Test',
+            operation: 'GetTestData'
         });
     }
 
@@ -76,7 +76,7 @@ export class GatewayService {
     ): Observable<T> {
         const headers = contentType
             ? {
-                  "Content-Type": contentType
+                  'Content-Type': contentType
               }
             : {};
         return this.http
@@ -122,7 +122,7 @@ export class GatewayService {
     private extractData<T>(raw: RawApiResponse<T>) {
         // console.log(raw);
         // const response = raw.response as RawApiResponse<T>;
-        if (raw.RetCode === "OK") {
+        if (raw.RetCode === 'OK') {
             return raw.Data;
         } else {
             return raw;
@@ -138,7 +138,7 @@ export class GatewayService {
             this.feature
         }/?${Object.keys(query)
             .map(key => `${key}=${query[key]}`)
-            .join("&")}`;
+            .join('&')}`;
     }
 }
 
@@ -149,7 +149,7 @@ interface ApiQuery {
 }
 
 export interface RawApiResponse<T> {
-    RetCode: "OK" | "Error";
+    RetCode: 'OK' | 'Error';
     RetMessage: string;
     Data: T;
 }

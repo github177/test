@@ -6,9 +6,7 @@
     <el-table-column model-key="version" label="版本"> </el-table-column>
     <el-table-column label="操作" width="120">
         <ng-template #slot let-scope="scope">
-            <el-button type="text" size="small" (click)="handle(scope)"
-                >删除</el-button
-            >
+            <el-button type="text" size="small" (click)="handle(scope)">删除</el-button>
         </ng-template>
     </el-table-column>
 </el-table>

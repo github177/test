@@ -1,15 +1,15 @@
-const express = require("express"),
-    path = require("path"),
-    readline = require("readline"),
+const express = require('express'),
+    path = require('path'),
+    readline = require('readline'),
     rl = readline.createInterface(process.stdin),
-    http = require("http"),
+    http = require('http'),
     app = express(),
     server = http.createServer(app),
-    bodyParser = require("body-parser");
+    bodyParser = require('body-parser');
 
 function loadDebugData() {
     data = {
-        test: require("./data/test.json")
+        test: require('./data/test.json')
     };
 }
 
@@ -19,15 +19,15 @@ function timeout(ms) {
 
 function ok(something) {
     return {
-        RetCode: "OK",
-        RetMessage: "",
+        RetCode: 'OK',
+        RetMessage: '',
         Data: something || null
     };
 }
 
 function error(message, data) {
     return {
-        RetCode: "Error",
+        RetCode: 'Error',
         RetMessage: message,
         Data: data || null
     };
@@ -40,7 +40,7 @@ app.use(bodyParser.json());
 //     res.sendFile(path.join(__dirname, './data/download.sample.zip'));
 // });
 
-app.all("*", (req, res, next) => {
+app.all('*', (req, res, next) => {
     let date = new Date();
     console.log(date.toLocaleString());
     console.log(req.query);
@@ -48,9 +48,9 @@ app.all("*", (req, res, next) => {
     return next();
 });
 
-app.all("/api/nodes/:node/features/TestAngular/", async (req, res, next) => {
+app.all('/api/nodes/:node/features/TestAngular/', async (req, res, next) => {
     switch (req.query.operation) {
-        case "Test.GetTestData":
+        case 'Test.GetTestData':
             return res.json(ok(data.test)).end();
         // return res.json(error("test api is error")).end();
         default:
@@ -66,7 +66,7 @@ function start() {
     });
 }
 
-rl.addListener("line", () => {
+rl.addListener('line', () => {
     console.log(`closing...`);
     server.close(() => {
         console.log(`restarting...`);
