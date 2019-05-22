@@ -25,7 +25,8 @@
                         ],
                         "scripts": [
                             "node_modules/jquery/dist/jquery.js",
-                            "node_modules/bootstrap/dist/js/bootstrap.js"
+                            "node_modules/bootstrap/dist/js/bootstrap.js",
+                            "src/assets/laydate/laydate.js"
                         ],
                         "es5BrowserSupport": true
                     },

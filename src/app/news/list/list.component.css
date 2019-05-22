@@ -1,16 +1,23 @@
-/* .parent {
-    width: 100%;
-    height: 150px;
-    display: flex;
-    flex-flow: row wrap;
-    align-content: flex-start;
+* {
+    margin: 0;
+    padding: 0;
 }
 
-.child {
-    box-sizing: border-box;
-    background-color: white;
-    flex: 0 0 33%;
-    min-width: 200px;
-    height: 50px;
+img {
+    width: 220px;
+    display: block;
+}
+
+#header {
+    text-align: center;
+}
+
+#box {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.item {
     border: 1px solid red;
-} */
+    flex: 0 0 220px;
+}
